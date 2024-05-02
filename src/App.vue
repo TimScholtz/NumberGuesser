@@ -7,11 +7,15 @@
         <form @submit="startGame()">
           <div class="d-flex">
             <input
+              min="0"
+              max="1000"
               type="number"
               class="form-control"
               v-model="firstRangeNumber"
             />
             <input
+              min="0"
+              max="1000"
               type="number"
               class="form-control"
               v-model="secondRangeNumber"
@@ -22,7 +26,7 @@
       </div>
     </div>
 
-    <div class="card p-3" v-else>
+    <div class="card p-3" v-else-if="!win && !start">
       <div class="card-body">
         <div class="card-title">Number Guessing Game</div>
         <span v-if="!guessMessage">Guess the random number</span>
@@ -40,6 +44,14 @@
         </form>
       </div>
     </div>
+
+    <div class="card p-3" v-else>
+      <div class="card-body">
+        <div class="card-title">Number Guessing Game</div>
+        The solution was: {{ solutionNumber }}
+        <button class="btn btn-primary" @click="restart">Restart</button>
+      </div>
+    </div>
   </div>
 </template>
 <style scoped></style>
@@ -47,6 +59,7 @@
 import { ref } from "vue";
 
 const start = ref(true);
+const win = ref(false);
 const firstRangeNumber = ref(0);
 const secondRangeNumber = ref(0);
 const solutionNumber = ref(0);
@@ -64,12 +77,21 @@ function startGame() {
 function guess() {
   if (guessNumber.value == solutionNumber.value) {
     guessMessage.value = "you won!";
-    // win function, show the solution number, restart button
+    win.value = true;
   } else if (guessNumber.value < solutionNumber.value) {
     guessMessage.value = "the solution is bigger";
   } else {
     guessMessage.value = "the solution is smaller";
   }
   guessNumber.value = 0;
+}
+function restart() {
+  start.value = true;
+  win.value = false;
+  firstRangeNumber.value = 0;
+  secondRangeNumber.value = 0;
+  solutionNumber.value = 0;
+  guessNumber.value = 0;
+  guessMessage.value = "";
 }
 </script>
