@@ -1,30 +1,9 @@
 <template>
-  <div class="d-flex justify-content-center align-items-start">
-    <div class="card p-3" v-if="!showCode">
-      <div class="card-body">
-        <div class="card-title">Number Guessing Game</div>
-        <div class="d-flex">
-          <button class="btn btn-primary" @click="showMeCode">
-            Show the code.
-          </button>
-        </div>
-      </div>
-    </div>
-
-    <div class="card p-3" v-else>
-      <div class="card-body">
-        <div class="card-title">Number Guessing Game</div>
-        <VCodeBlock :code="code" highlightjs lang="javascript"></VCodeBlock>
-        <div class="d-flex">
-          <button class="btn btn-primary" @click="showMeCode">
-            Hide the code.
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="d-flex justify-content-center align-items-center h-100">
-    <div class="card p-3" v-if="start">
+  <div
+    class="d-flex justify-content-between align-items-center flex-column h-100"
+  >
+    <div></div>
+    <div class="card p-3 h-fit" v-if="start">
       <div class="card-body">
         <div class="card-title">Number Guessing Game</div>
         Enter the range the numbers should have
@@ -76,6 +55,35 @@
         <div>The solution was: {{ solutionNumber }}</div>
         <div class="d-flex justify-content-end">
           <button class="btn btn-primary" @click="restart">Restart</button>
+        </div>
+      </div>
+    </div>
+    <div class="d-flex justify-content-center justiy-end">
+      <div class="card p-3" v-if="!showCode">
+        <div class="card-body">
+          <div class="d-flex">
+            <button class="btn btn-primary" @click="showMeCode">
+              Show the code.
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card p-3" v-else>
+        <div class="card-body">
+          <div class="card-title">Number Guessing Game</div>
+          <VCodeBlock
+            style="overflow-y: scroll; height: 300px"
+            :code="code"
+            highlightjs
+            lang="javascript"
+            theme="tokyo-night-dark"
+          ></VCodeBlock>
+          <div class="d-flex">
+            <button class="btn btn-primary" @click="showMeCode">
+              Hide the code.
+            </button>
+          </div>
         </div>
       </div>
     </div>
