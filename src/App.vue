@@ -1,5 +1,28 @@
 <template>
-  <VCodeBlock :code="code" highlightjs lang="javascript"></VCodeBlock>
+  <div class="d-flex justify-content-center align-items-start">
+    <div class="card p-3" v-if="!showCode">
+      <div class="card-body">
+        <div class="card-title">Number Guessing Game</div>
+        <div class="d-flex">
+          <button class="btn btn-primary" @click="showMeCode">
+            Show the code.
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="card p-3" v-else>
+      <div class="card-body">
+        <div class="card-title">Number Guessing Game</div>
+        <VCodeBlock :code="code" highlightjs lang="javascript"></VCodeBlock>
+        <div class="d-flex">
+          <button class="btn btn-primary" @click="showMeCode">
+            Hide the code.
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
   <div class="d-flex justify-content-center align-items-center h-100">
     <div class="card p-3" v-if="start">
       <div class="card-body">
@@ -63,6 +86,7 @@
 import { ref } from "vue";
 import { VCodeBlock } from "@wdns/vue-code-block";
 
+const showCode = ref(false);
 const start = ref(true);
 const win = ref(false);
 const firstRangeNumber = ref(0);
@@ -99,7 +123,9 @@ function restart() {
   guessNumber.value = 0;
   guessMessage.value = "";
 }
-
+function showMeCode() {
+  showCode.value = !showCode.value;
+}
 const code = ref(`<template>
   <div class="d-flex justify-content-center align-items-center h-100">
     <div class="card p-3" v-if="start">
@@ -199,5 +225,6 @@ function restart() {
   guessNumber.value = 0;
   guessMessage.value = "";
 }
+/script>
 `);
 </script>
