@@ -63,7 +63,7 @@
         <div class="card-body">
           <div class="d-flex">
             <button class="btn btn-primary" @click="showMeCode">
-              Show the code.
+              Show code
             </button>
           </div>
         </div>
@@ -73,16 +73,14 @@
         <div class="card-body">
           <div class="card-title">Number Guessing Game</div>
           <VCodeBlock
-            style="overflow-y: scroll; height: 300px"
+            style="overflow-y: scroll; height: 500px"
             :code="code"
             highlightjs
             lang="javascript"
             theme="tokyo-night-dark"
           ></VCodeBlock>
           <div class="d-flex">
-            <button class="btn btn-primary" @click="showMeCode">
-              Hide the code.
-            </button>
+            <button class="btn btn-primary" @click="showMeCode">Hide</button>
           </div>
         </div>
       </div>
@@ -134,9 +132,13 @@ function restart() {
 function showMeCode() {
   showCode.value = !showCode.value;
 }
-const code = ref(`<template>
-  <div class="d-flex justify-content-center align-items-center h-100">
-    <div class="card p-3" v-if="start">
+const code = ref(`
+<template>
+  <div
+    class="d-flex justify-content-between align-items-center flex-column h-100"
+  >
+    <div></div>
+    <div class="card p-3 h-fit" v-if="start">
       <div class="card-body">
         <div class="card-title">Number Guessing Game</div>
         Enter the range the numbers should have
@@ -191,12 +193,41 @@ const code = ref(`<template>
         </div>
       </div>
     </div>
+    <div class="d-flex justify-content-center justiy-end">
+      <div class="card p-3" v-if="!showCode">
+        <div class="card-body">
+          <div class="d-flex">
+            <button class="btn btn-primary" @click="showMeCode">
+              Show code
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card p-3" v-else>
+        <div class="card-body">
+          <div class="card-title">Number Guessing Game</div>
+          <VCodeBlock
+            style="overflow-y: scroll; height: 500px"
+            :code="code"
+            highlightjs
+            lang="javascript"
+            theme="tokyo-night-dark"
+          ></VCodeBlock>
+          <div class="d-flex">
+            <button class="btn btn-primary" @click="showMeCode">Hide</button>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 <style scoped></style>
 <script setup lang="ts">
 import { ref } from "vue";
+import { VCodeBlock } from "@wdns/vue-code-block";
 
+const showCode = ref(false);
 const start = ref(true);
 const win = ref(false);
 const firstRangeNumber = ref(0);
@@ -232,6 +263,9 @@ function restart() {
   solutionNumber.value = 0;
   guessNumber.value = 0;
   guessMessage.value = "";
+}
+function showMeCode() {
+  showCode.value = !showCode.value;
 }
 /script>
 `);
