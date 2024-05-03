@@ -48,8 +48,11 @@
     <div class="card p-3" v-else>
       <div class="card-body">
         <div class="card-title">Number Guessing Game</div>
-        The solution was: {{ solutionNumber }}
-        <button class="btn btn-primary" @click="restart">Restart</button>
+        <div>You guessed right!!</div>
+        <div>The solution was: {{ solutionNumber }}</div>
+        <div class="d-flex justify-content-end">
+          <button class="btn btn-primary" @click="restart">Restart</button>
+        </div>
       </div>
     </div>
   </div>
